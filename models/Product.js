@@ -10,14 +10,40 @@ class Product extends Model {}
 Product.init(
   {
     // define columns
+  id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+    autoIncrement: true
   },
-  {
-    sequelize,
-    timestamps: false,
-    freezeTableName: true,
-    underscored: true,
-    modelName: 'product',
-  }
+  product_name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  price: {
+    type: DataTypes.DECIMAL(10,2),
+    allowNull: false
+    // how do i validate that this is a decimal?
+  },
+  stock: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    // how do i validate that this is numeric?
+  },
+  category: {
+    type: DataTypes.INTEGER,
+    references: {
+      // how do i reference the 'category' model's 'id'
+    }
+  },
+},
+{
+  sequelize,
+  timestamps: false,
+  freezeTableName: true,
+  underscored: true,
+  modelName: 'product',
+}
 );
 
 module.exports = Product;

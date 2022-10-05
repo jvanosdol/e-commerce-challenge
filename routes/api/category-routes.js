@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
   // grab all from categories, include product model as well
   // response format?
   // has many
+  Category.findAll
 
 });
 
