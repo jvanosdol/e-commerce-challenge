@@ -14,7 +14,6 @@ router.get('/', (req, res) => {
   Category.findAll({
     attributes: [
       'id',
-      //'category_name'
       'category_name'
     ],
     include: {
@@ -22,14 +21,15 @@ router.get('/', (req, res) => {
       attributes: ['id', 'product_name', 'price', 'stock', 'category_id'],
     }
   })
-  .then(data => res.json(data)
+  .then(data => res.json(data))
   .catch(err => {
     console.log(err)
-    //res.status(404).json(err);
-  }),
-  //console.log(res.json(data))
+    console.log(res.json(data))
+    res.status(404).json(err);
+  });
+  
 
-)});
+});
 
 router.get('/:id', (req, res) => {
   // find one category by its `id` value
