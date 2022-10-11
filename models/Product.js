@@ -22,28 +22,35 @@ Product.init(
   },
   price: {
     type: DataTypes.DECIMAL(10,2),
-    allowNull: false
+    allowNull: false,
     // how do i validate that this is a decimal?
+    validate: {
+      isDecimal: true
+    }
   },
   stock: {
     type: DataTypes.INTEGER,
     allowNull: false,
     // how do i validate that this is numeric?
-  },
-  category: {
-    type: DataTypes.INTEGER,
-    references: {
-      // how do i reference the 'category' model's 'id'
+    validate: {
+      isNumeric: true
     }
   },
-},
-{
-  sequelize,
-  timestamps: false,
-  freezeTableName: true,
-  underscored: true,
-  modelName: 'product',
+  category_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'category',
+      key: 'id'
+  }
 }
+ },
+  {
+    sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    underscored: true,
+    modelName: 'product',
+  }
 );
 
 module.exports = Product;

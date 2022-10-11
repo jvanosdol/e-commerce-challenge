@@ -10,9 +10,26 @@ router.get('/', (req, res) => {
   // grab all from categories, include product model as well
   // response format?
   // has many
-  Category.findAll
 
-});
+  Category.findAll({
+    attributes: [
+      'id',
+      //'category_name'
+      'category_name'
+    ],
+    include: {
+      model: Product,
+      attributes: ['id', 'product_name', 'price', 'stock', 'category_id'],
+    }
+  })
+  .then(data => res.json(data)
+  .catch(err => {
+    console.log(err)
+    //res.status(404).json(err);
+  }),
+  //console.log(res.json(data))
+
+)});
 
 router.get('/:id', (req, res) => {
   // find one category by its `id` value
