@@ -36,6 +36,22 @@ router.get('/:id', (req, res) => {
   // be sure to include its associated Products
 
   // has one
+
+Category.findOne({
+    where: {
+      id: req.params.id
+    },
+    include: {
+      model: Product,
+      attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
+    }
+  })
+  .then(data => res.json(data))
+  .catch(err => {
+    console.log(err)
+    console.log(res.json(data))
+    res.status(404).json(err);
+  });
 });
 
 router.post('/', (req, res) => {
