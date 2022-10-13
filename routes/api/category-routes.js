@@ -56,6 +56,14 @@ Category.findOne({
 
 router.post('/', (req, res) => {
   // create a new category
+
+  Category.create({
+    category_name: req.body.category_name
+  })
+  .then(data => res.json(data))
+  .catch(err => {
+    console.log(err)
+  })
 });
 
 router.put('/:id', (req, res) => {
