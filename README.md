@@ -30,7 +30,7 @@ Shows the proper use of 'get', 'put', 'post', and 'delete' methods in order to b
 ## Installation
 
 Clone the repo
-git clone https://github.com/jvanosdol/employee-tracker
+git clone https://github.com/jvanosdol/e-commerce-challenge
 
 
 
