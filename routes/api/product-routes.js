@@ -32,6 +32,33 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
+  Product.findOne({
+    where: {
+      id: req.params.id
+    },
+    attributes: ['id', 'product_name', 'price', 'stock', 'category_id'],
+    include: [
+      {
+        model: Category,
+        attributes: ['category_name']
+      },
+      {
+        model: Tag,
+        attributes: ['tag_name']
+      }
+    ]
+  })
+  .then(data => {
+    if(!data) {
+      res.status(404).json({ message: 'No product was found with that id'})
+      return
+    }
+    res.json(data)
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500).json(err)
+  })
 });
 
 // create new product
@@ -62,7 +89,7 @@ router.post('/', (req, res) => {
     .then((productTagIds) => res.status(200).json(productTagIds))
     .catch((err) => {
       console.log(err);
-      res.status(400).json(err);
+      res.status(500).json(err);
     });
 });
 
@@ -104,7 +131,7 @@ router.put('/:id', (req, res) => {
     .then((updatedProductTags) => res.json(updatedProductTags))
     .catch((err) => {
       // console.log(err);
-      res.status(400).json(err);
+      res.status(500).json(err);
     });
 });
 
