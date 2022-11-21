@@ -55,9 +55,9 @@ Category.findOne({
 });
 
 router.post('/', (req, res) => {
-  // create a new category
-
+  // create a new category 
   Category.create({
+    id: req.body.id,
     category_name: req.body.category_name
   })
   .then(data => res.json(data))
@@ -68,6 +68,22 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
   // update a category by its `id` value
+  Category.update(req.body, {
+    where: {
+      id: req.params.id,
+    }
+  })
+  .then(data => {
+    if(!data) {
+      res.status(404).json({message: 'There is not category with this id'})
+      return
+    }
+    res.json(data)
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500)
+  })
 });
 
 router.delete('/:id', (req, res) => {
